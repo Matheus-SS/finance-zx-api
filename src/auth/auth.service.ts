@@ -1,14 +1,19 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { USER_REPOSITORY } from "src/constants";
+import { SESSION_REPOSITORY, USER_REPOSITORY } from "../constants";
 import { Err, Ok, Result } from "../result.type";
 import { IUserRepository } from "../users/repository/users.repository.interface";
 import { AuthenticationError, ComparePasswordError, DbCommonError, ValidationInputError } from "../users/users.errors";
 import { LoginDto } from "./login.dto";
 import jwt from 'jsonwebtoken'
+import { ISessionRepository } from "../sessions/repository/sessions.repository.interface";
+import { convertHourToMili, convertMiliToSec, getUnixTime, uuid } from "src/helper";
 
 @Injectable() 
 export class AuthService {
-  constructor(@Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository) {}
+  constructor(
+    @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
+    @Inject(SESSION_REPOSITORY) private readonly sessionRepository: ISessionRepository
+  ) {}
   async login(data: LoginDto): Promise<Result<string, ValidationInputError | AuthenticationError | DbCommonError | ComparePasswordError>> {
 
     const l = LoginDto.create(data)
@@ -43,12 +48,30 @@ export class AuthService {
       }
     }
 
-    const token = this.generateToken(u.ok === true && u.value.id)
+    const hourToMili = convertHourToMili(8)
+    const currentTime = getUnixTime()
+    const expires = currentTime + hourToMili
+    const s = await this.sessionRepository.create({
+      id: uuid(),
+      user_id: u.ok === true && u.value.id,
+      created_at: currentTime,
+      expires_in: expires
+    })
+
+    if (s.ok === false) {
+      if (s.error.type === 'ValidationInputErr') {
+        return Err(new ValidationInputError(s.error.msg))
+      } else {
+        return Err(new DbCommonError("erro ao criar sessão"))
+      }
+    }
+
+    const token = this.generateToken(s.ok === true && s.value.id, convertMiliToSec(hourToMili))
 
     return Ok(token)
   }
 
-  private generateToken(user_id: number): string {
-    return jwt.sign({ user_id: user_id }, 'secret', { expiresIn: '8h' });
+  private generateToken(session_id: string, expiresIn: number): string {
+    return jwt.sign({ session: session_id }, 'secret', { expiresIn: expiresIn });
   }
 }

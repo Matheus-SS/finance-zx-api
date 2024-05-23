@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { randomUUID }  from 'node:crypto';
 
 export function ServerResponse(res: Response, status: number, message: any) {
   return res.status(status).json({
@@ -34,4 +35,22 @@ export function hasMinLength(value: any, minLength: number): boolean {
     return true
   }
   return false
+}
+
+export function getUnixTime(): number {
+  return Math.floor(new Date().getTime()/1000.0)
+}
+
+export function uuid(): string {
+  return randomUUID()
+}
+
+export function convertHourToMili(hours: number) {
+  const MIN = 60 // sec
+  const HOUR = MIN * 60 // 1 hora
+  return (hours * HOUR) * 1000  
+}
+
+export function convertMiliToSec(mili: number) {
+  return mili / 1000  
 }

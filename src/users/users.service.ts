@@ -6,6 +6,7 @@ import { User } from './users.entity';
 import { UserDomainError, DbCommonError, EmailAlreadyExistsError, GeneratePasswordError } from './users.errors';
 import { IUserRepository } from './repository/users.repository.interface';
 import { USER_REPOSITORY } from '../constants';
+import { getUnixTime } from 'src/helper';
 
 @Injectable()
 export class UsersService {
@@ -55,7 +56,8 @@ export class UsersService {
       email: user.email,
       name: user.email,
       password: pHash,
-      username: user.username
+      username: user.username,
+      created_at: getUnixTime()
     })
 
     if (u.ok === false) {

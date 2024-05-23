@@ -16,7 +16,8 @@ export class UserRepository implements IUserRepository {
         name: user.name,
         username: user.username,
         password: user.password,
-        email: user.email
+        email: user.email,
+        created_at: user.created_at
       })
 
       return Ok(new User({

@@ -10,8 +10,10 @@ type GeneratePasswordErr = 'GeneratePasswordErr';
 type ComparePasswordErr = 'ComparePasswordErr';
 type DbCommonErr = 'DbCommonErr';
 type ValidationInputErr = 'ValidationInputErr';
+
 type AuthenticationErr = 'AuthenticationErr';
 
+type SessionNotFoundErr = 'SessionNotFoundErr';
 
 export class DbCommonError extends Error {
   type: DbCommonErr;
@@ -90,5 +92,15 @@ export class AuthenticationError extends Error {
     super();
     this.msg = msg;
     this.type = 'AuthenticationErr';
+  }
+}
+
+export class SessionNotFoundError extends Error {
+  type: SessionNotFoundErr;
+  msg: string;
+  constructor(msg = 'sessão não encontrada') {
+    super();
+    this.msg = msg;
+    this.type = 'SessionNotFoundErr';
   }
 }

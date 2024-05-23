@@ -7,6 +7,7 @@ export type CreateUser = {
   username: string;
   email: string;
   password: string;
+  created_at: number;
 }
 export interface IUserRepository {
   create(user: CreateUser): Promise<Result<User, DbCommonError>>

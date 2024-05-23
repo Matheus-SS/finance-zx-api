@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { UserModel } from '../users/model/users.model';
+import { SessionModel } from '../sessions/model/sessions.model';
 
 export const databaseProviders = [
   {
@@ -13,7 +14,7 @@ export const databaseProviders = [
         password: 'root',
         database: 'phoenix',
       });
-      sequelize.addModels([UserModel]);
+      sequelize.addModels([UserModel, SessionModel]);
       sequelize.authenticate().then(() => {
         console.log("Conexao com o banco de dados feita com sucesso")
       }).catch((err) => {

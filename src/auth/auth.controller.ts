@@ -16,7 +16,7 @@ export class AuthController {
         if (result.error.type === 'AuthenticationErr') {
           return ServerResponse(response, http.StatusUnprocessable, result.error.msg) 
         } else if (result.error.type === 'DbCommonErr') {
-          return ServerResponse(response, http.StatusUnprocessable, result.error.msg) 
+          return ServerResponse(response, http.StatusInternalServer, result.error.msg) 
         } else if (result.error.type === 'ValidationInputErr') {
           return ServerResponse(response, http.StatusUnprocessable, result.error.msg) 
         } else {
