@@ -11,6 +11,7 @@ create table tbl_users(
 create table tbl_sessions(
 	id uuid not null primary key,
 	user_id int not null,
+	is_active boolean not null,
 	expires_in bigint not null,
 	created_at bigint,
 	updated_at bigint

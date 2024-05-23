@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import jwt from 'jsonwebtoken'
 import { randomUUID }  from 'node:crypto';
 
 export function ServerResponse(res: Response, status: number, message: any) {
@@ -35,6 +36,10 @@ export function hasMinLength(value: any, minLength: number): boolean {
     return true
   }
   return false
+}
+
+export function generateToken(session_id: string, expiresIn: number): string {
+  return jwt.sign({ session: session_id }, 'secret', { expiresIn: expiresIn });
 }
 
 export function getUnixTime(): number {

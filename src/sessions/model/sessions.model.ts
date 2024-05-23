@@ -19,6 +19,12 @@ export class SessionModel extends Model {
   user_id: number;
 
   @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+  })
+  is_active: boolean;
+
+  @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })

@@ -4,9 +4,8 @@ import { Err, Ok, Result } from "../result.type";
 import { IUserRepository } from "../users/repository/users.repository.interface";
 import { AuthenticationError, ComparePasswordError, DbCommonError, ValidationInputError } from "../users/users.errors";
 import { LoginDto } from "./login.dto";
-import jwt from 'jsonwebtoken'
 import { ISessionRepository } from "../sessions/repository/sessions.repository.interface";
-import { convertHourToMili, convertMiliToSec, getUnixTime, uuid } from "src/helper";
+import { convertHourToMili, convertMiliToSec, generateToken, getUnixTime, uuid } from "src/helper";
 
 @Injectable() 
 export class AuthService {
@@ -55,7 +54,8 @@ export class AuthService {
       id: uuid(),
       user_id: u.ok === true && u.value.id,
       created_at: currentTime,
-      expires_in: expires
+      expires_in: expires,
+      is_active: true
     })
 
     if (s.ok === false) {
@@ -65,13 +65,9 @@ export class AuthService {
         return Err(new DbCommonError("erro ao criar sessão"))
       }
     }
-
-    const token = this.generateToken(s.ok === true && s.value.id, convertMiliToSec(hourToMili))
+  
+    const token = generateToken(s.ok === true && s.value.id, convertMiliToSec(hourToMili))
 
     return Ok(token)
-  }
-
-  private generateToken(session_id: string, expiresIn: number): string {
-    return jwt.sign({ session: session_id }, 'secret', { expiresIn: expiresIn });
-  }
+  } 
 }

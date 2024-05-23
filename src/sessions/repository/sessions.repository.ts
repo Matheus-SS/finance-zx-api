@@ -17,15 +17,17 @@ export class SessionRepository implements ISessionRepository{
         user_id: session.user_id,
         created_at: session.created_at,
         expires_in: session.expires_in,
+        is_active: session.is_active,
         updated_at: session?.updated_at
       })
-
+      
       const s = SessionEntity.create({
         id: sm.id,
         user_id: sm.user_id,
         created_at: sm.created_at,
         updated_at: sm?.updated_at,
-        expires_in: sm.expires_in
+        expires_in: sm.expires_in,
+        is_active: sm.is_active
       })
 
       if (s.ok === false) {
@@ -59,7 +61,8 @@ export class SessionRepository implements ISessionRepository{
         user_id: sm.user_id,
         created_at: sm.createdAt,
         updated_at: sm?.updatedAt,
-        expires_in: sm.expires_in
+        expires_in: sm.expires_in,
+        is_active: sm.is_active
       })
 
       if (s.ok === false) {
