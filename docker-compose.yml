@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:alpine3.19
+    container_name: financezx-db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_DB: phoenix
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
