@@ -1,20 +1,32 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
 import jwt from 'jsonwebtoken'
 import { randomUUID }  from 'node:crypto';
 
-export function ServerResponse(res: Response, status: number, message: any) {
-  return res.status(status).json({
-    ok: status <= 400 ? true : false, 
-    message: message
-  })
+export class ServerResponse {
+  private ok: boolean;
+  private message: any;
+  constructor(msg: any) {
+    this.message = msg;
+    this.ok = true
+  }
 }
 
+export class ServerException extends HttpException {
+  private msg: any;
+  constructor(msg: any, status: number, stack?: any) {
+    super(msg, status);
+    this.msg = msg
+    this.stack = stack
+  }
+}
+ 
 export const http = {
-  StatusUnprocessable: 422,
-  StatusInternalServer: 500,
-  StatusConflict: 409,
-  StatusCreated: 201,
-  StatusOk: 200
+  StatusUnprocessable: HttpStatus.UNPROCESSABLE_ENTITY,
+  StatusInternalServer: HttpStatus.INTERNAL_SERVER_ERROR,
+  StatusConflict: HttpStatus.CONFLICT,
+  StatusCreated: HttpStatus.CREATED,
+  StatusOk: HttpStatus.OK
 }
 
 export function IsNullUndefinedOrEmpty(value: any): boolean {

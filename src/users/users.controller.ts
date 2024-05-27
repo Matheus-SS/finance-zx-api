@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UnprocessableEntityE
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ServerResponse, http } from 'src/helper';
+import { ServerException, ServerResponse, http } from 'src/helper';
 import { Response } from 'express';
 
 @Controller('users')
@@ -10,30 +10,23 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto, @Res() response: Response) {
-    try {
+  async create(@Body() createUserDto: CreateUserDto) {
       const result =  await this.usersService.create(createUserDto);    
       if (result.ok === false) {
         if (result.error.type === 'UserDomainErr') {
-          return ServerResponse(response, http.StatusUnprocessable, result.error.msg) 
+          throw new ServerException(result.error.msg, http.StatusUnprocessable, result.error) 
         } else if (result.error.type === 'EmailAlreadyExistsErr') {
-          return ServerResponse(response, http.StatusUnprocessable, result.error.msg) 
+          throw new ServerException(result.error.msg, http.StatusUnprocessable, result.error) 
         } else if (result.error.type === 'DbCommonErr') {
-          return ServerResponse(response, http.StatusInternalServer, result.error.msg) 
+          throw new ServerException("internal server error", http.StatusInternalServer, result.error) 
         } else if (result.error.type === 'GeneratePasswordErr') {
-          return ServerResponse(response, http.StatusInternalServer, result.error.msg) 
+          throw new ServerException("internal server error", http.StatusInternalServer, result.error) 
         } else {
-          console.log(result.error)
-          return ServerResponse(response, http.StatusInternalServer, "internal server error")
+          throw new ServerException("internal server error", http.StatusInternalServer, result.error)
         }
       } else {
-        return ServerResponse(response, http.StatusCreated, result.value)
+        return new ServerResponse(result.value)
       }
-    } catch (error) {
-      console.log("create - controller", error)
-      return ServerResponse(response, http.StatusInternalServer, "internal server error")
-    }
-    
   }
 
   @Get()
