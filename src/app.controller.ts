@@ -1,18 +1,23 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Inject } from '@nestjs/common';
 import { AppService } from './app.service';
-import { KnexService } from './database/knex/knex.service';
+import { Database } from './database/knex/interface';
+import { KNEX_CONNECTION } from './constants';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService,
-    private readonly nestKnexService: KnexService
+    @Inject(KNEX_CONNECTION) private readonly conn: Database
   ) {}
 
   @Get()
   async getHello(): Promise<any> {
-    const knex = this.nestKnexService.getKnexConnection();
-    const cats = await knex.select('*').from('cats');
-
+    const cats =  await this.conn.queryRaw(`select * 
+      from cats 
+      where name = :name 
+      `, {
+        name: 'tom'
+      });
+    console.log("cats",cats);
     return cats;
   }
 }
