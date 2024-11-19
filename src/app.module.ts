@@ -6,6 +6,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configuration, DatabaseConfig } from './config/configuration';
 import { UserController } from './controller/index';
 import { ServiceModule } from './service/service.module';
+import { I18nModule } from 'nestjs-i18n';
+import * as path from 'path';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './extra/httpException.filter';
+import { I18nService } from './extra/localization/i18n/i18n.service';
 
 @Module({
   imports: [
@@ -36,9 +41,22 @@ import { ServiceModule } from './service/service.module';
       },
       inject: [ConfigService]
     }),
+    I18nModule.forRoot({
+      fallbackLanguage: 'en',
+      loaderOptions: {
+        path: path.join(__dirname, './extra/localization/i18n/'),
+        watch: true
+      }
+    }),
     ServiceModule
   ],
   controllers: [AppController, UserController],
-  providers: [AppService],
+  providers: [AppService,
+    I18nService, 
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter
+    }
+  ],
 })
 export class AppModule {}
