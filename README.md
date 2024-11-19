@@ -4,7 +4,7 @@
 - id (int autoincrement) 
 - email (string unique) body
 - name (string min 2 max 50) body
-- urlAvatar(null | string)
+- urlAvatar(null | string) aqui previnir que coloque localhost e faca uma requisicao para meu proprio backend
 - password (string min 6 max 25) body
 - createdAt  (integer unix time) 
 - updatedAt (integer unix time)

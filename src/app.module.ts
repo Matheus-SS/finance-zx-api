@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { KnexModule } from './database/knex/knex.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configuration, DatabaseConfig } from './config/configuration';
+import { UserController } from './controller/index';
+import { ServiceModule } from './service/service.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -32,9 +35,10 @@ import { configuration, DatabaseConfig } from './config/configuration';
         })
       },
       inject: [ConfigService]
-    })
+    }),
+    ServiceModule
   ],
-  controllers: [AppController],
+  controllers: [AppController, UserController],
   providers: [AppService],
 })
 export class AppModule {}

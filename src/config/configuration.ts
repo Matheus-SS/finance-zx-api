@@ -1,3 +1,7 @@
+export interface AppConfig {
+  port: number;
+};
+
 export interface DatabaseConfig {
     client: string;
     host: string;
@@ -10,13 +14,15 @@ export interface DatabaseConfig {
 };
 
 interface Config {
-  port: number;
+  app: AppConfig;
   database: DatabaseConfig;
 };
 
 export function configuration(): Config {
   return {
-    port: +process.env.PORT,
+    app: {
+      port: +process.env.PORT
+    },
     database: {
       client: process.env.DATABASE_CLIENT,
       host: process.env.DATABASE_HOST,
