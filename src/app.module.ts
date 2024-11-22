@@ -51,7 +51,8 @@ import { I18nService } from './extra/localization/i18n/i18n.service';
     ServiceModule
   ],
   controllers: [AppController, UserController],
-  providers: [AppService,
+  providers: [
+    AppService,
     I18nService, 
     {
       provide: APP_FILTER,

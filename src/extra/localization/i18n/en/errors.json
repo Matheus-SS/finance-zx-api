@@ -2,15 +2,12 @@
   "validation": {
     "user": {
       "IS_STRING_NAME": "name must be string",
-      "MIN_LENGTH_NAME": "name must be longer or equal than 2 characters",
-      "MAX_LENGTH_NAME": "name must be shorter or equal than 50 characters",
+      "LENGTH_NAME": "name must be between 2 and 50 characters",
       "IS_STRING_EMAIL": "email must be string", 
       "INVALID_EMAIL": "email must be a valid email",
-      "MIN_LENGTH_URL_AVATAR": "urlAvatar must be longer or equal than 10 characters",
-      "MAX_LENGTH_URL_AVATAR": "urlAvatar must shorter or equal than 250 characters",
+      "LENGTH_URL_AVATAR": "urlAvatar must be between 10 and 250 characters",
       "IS_STRING_URL_AVATAR": "urlAvatar must be string",
-      "MIN_LENGTH_PASSWORD": "password must be longer or equal than 6 characters",
-      "MAX_LENGTH_PASSWORD": "password must be shorter or equal than 25 characters",
+      "LENGTH_PASSWORD": "password must be between 6 and 25 characters",
       "IS_STRING_PASSWORD": "password must be string",
       "IS_INT_SETTING_ID": "settingId must be an integer",
       "MIN_SETTING_ID": "settingId must not be shorter than 1"

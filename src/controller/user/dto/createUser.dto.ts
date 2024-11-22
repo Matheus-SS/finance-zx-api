@@ -1,48 +1,51 @@
-import { IsEmail, IsInt, IsOptional, IsString, MaxLength, Min, MinLength } from "class-validator";
+import { IsEmail, IsInt, IsOptional, IsString, Length, Min } from "class-validator";
+import { Trim } from "../../../extra/decorator/trim.decorator";
+import { Transform } from "class-transformer";
 
 export class CreateUserDto {
+ 
   @IsString({
     message: "validation.user.IS_STRING_NAME"
   })
-  @MinLength(2, {
-    message: 'validation.user.MIN_LENGTH_NAME'
+  @Length(2, 50, {
+    message: 'validation.user.LENGTH_NAME'
   })
-  @MaxLength(50, {
-    message: 'validation.user.MAX_LENGTH_NAME'
-  })
+  @Trim()
   name: string;
 
+  
   @IsString({
     message: "validation.user.IS_STRING_EMAIL"
   })
   @IsEmail({}, {
     message: 'validation.user.INVALID_EMAIL'
   })
+  @Trim()
   email: string;
 
+
+  @Transform(({ value }) => (value === '' ? null : value))
+  @Trim()
   @IsOptional()
-  @MinLength(10, {
-    message: 'validation.user.MIN_LENGTH_URL_AVATAR'
-  })
-  @MaxLength(250, {
-    message: 'validation.user.MAX_LENGTH_URL_AVATAR'
+  @Length(10, 250, {
+    message: 'validation.user.LENGTH_URL_AVATAR'
   })
   @IsString({
     message: "validation.user.IS_STRING_URL_AVATAR"
   })
   urlAvatar?: null | string;
 
-  @MinLength(6, {
-    message: 'validation.user.MIN_LENGTH_PASSWORD'
-  })
-  @MaxLength(25, {
-    message: 'validation.user.MAX_LENGTH_PASSWORD'
+
+  @Length(6, 25, {
+    message: 'validation.user.LENGTH_PASSWORD'
   })
   @IsString({
     message: "validation.user.IS_STRING_PASSWORD"
   })
+  @Trim()
   password: string;
 
+  
   @IsOptional()
   @IsInt({
     message: 'validation.user.IS_INT_SETTING_ID'

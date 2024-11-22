@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { IUserRepository } from "../persistence/user.interface";
-import { CreateUserDto } from "../controller/user/createUser.dto";
+import { CreateUserDto } from "../controller/user/dto/createUser.dto";
 import { USER_REPOSITORY } from "../constants";
 
 @Injectable()

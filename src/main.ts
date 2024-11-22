@@ -12,8 +12,9 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const i18nService = app.get(I18nService);
 
-  app.useGlobalFilters(new HttpExceptionFilter(i18nService))
-  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalFilters(new HttpExceptionFilter(i18nService));
+  
+  app.useGlobalPipes(new ValidationPipe());
 
   const PORT = configService.get<number>('app.port');
   await app.listen(PORT);
