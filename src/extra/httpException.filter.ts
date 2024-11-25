@@ -41,11 +41,29 @@ export class HttpExceptionFilter implements ExceptionFilter {
           message: errors,
         });
     }
-    return response
-      .status(status)
-      .json({
-        statusCode: status,
-        message: exception ? exception.message : '',
-      })
+
+    // errors from domain
+    if (typeof exceptionResponse.message === 'string' &&
+        exceptionResponse.message.startsWith('domain.')) {
+          const translatedMessage = this.i18nService.translate(
+           `errors.${exceptionResponse.message}`, 
+            lang
+          );
+          
+          return response
+            .status(status)
+            .json({
+              statusCode: status,
+              message: translatedMessage,
+            })
+        };
+      
+    // errors i forgot to map 
+      return response
+        .status(status)
+        .json({
+          statusCode: status,
+          message: exception ? exception.message : '',
+        })
   }
 }

@@ -1,20 +1,31 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { ConflictException, Inject, Injectable } from "@nestjs/common";
 import { IUserRepository } from "../persistence/user.interface";
 import { CreateUserDto } from "../controller/user/dto/createUser.dto";
 import { USER_REPOSITORY } from "../constants";
+import { IHash } from "../extra/bcrypt.service";
 
 @Injectable()
 export class UserService {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly userRepo: IUserRepository
+    @Inject(USER_REPOSITORY) private readonly userRepo: IUserRepository,
+    @Inject('BCRYPT_SERVICE') private readonly bcryptService: IHash
   ) {}
 
   public async create(data: CreateUserDto) {
+    const user = await this.userRepo.findByEmail(data.email);
+
+    if (user) {
+      throw new ConflictException('domain.user.ALREADY_EXISTS');
+    }
+
+    const passwordHashed = await this.bcryptService.generateHash(user.password);
+
     const res = await this.userRepo.create({
       ...data,
-      setting_id: data?.settingId ? data.settingId : null,
-      url_avatar: data?.urlAvatar ? data.urlAvatar : null
+      password: passwordHashed,
+      setting_id: data?.setting_id ? data.setting_id : null,
+      url_avatar: data?.url_avatar ? data.url_avatar : null
     });
-    return;
+    return res;
   }
 }

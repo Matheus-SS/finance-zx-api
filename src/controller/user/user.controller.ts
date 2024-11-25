@@ -13,6 +13,6 @@ export class UserController {
   public async create(@Body() createUserDto: CreateUserDto) {
     console.log("CREATE", createUserDto);
     const r = await this.userService.create(createUserDto)
-    return 'heelo';
+    return r;
   }
 }

@@ -16,6 +16,8 @@ async function bootstrap() {
   
   app.useGlobalPipes(new ValidationPipe());
 
+  app.setGlobalPrefix('/v1/api/');
+
   const PORT = configService.get<number>('app.port');
   await app.listen(PORT);
   log.log(`Server running on port ${PORT}`)

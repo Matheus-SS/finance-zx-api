@@ -10,8 +10,8 @@ describe('CreateUserDto', () => {
       name: 'John Doe',
       email: 'john@example.com',
       password: 'secure123password',
-      urlAvatar: 'https://example.com/avatar.jpg',
-      settingId: 1
+      url_avatar: 'https://example.com/avatar.jpg',
+      setting_id: 1
     };
   });
 
@@ -121,11 +121,11 @@ describe('CreateUserDto', () => {
     });
   });
 
-  describe('urlAvatar validation', () => {
+  describe('url avatar validation', () => {
     it('should pass with exactly 10 characters', async () => {
       const dto = plainToInstance(CreateUserDto, {
         ...validUserData,
-        urlAvatar: '1234567890'
+        url_avatar: '1234567890'
       });
       const errors = await validate(dto);
       expect(errors.length).toBe(0);
@@ -134,7 +134,7 @@ describe('CreateUserDto', () => {
     it('should pass with exactly 250 characters', async () => {
       const dto = plainToInstance(CreateUserDto, {
         ...validUserData,
-        urlAvatar: 'a'.repeat(250)
+        url_avatar: 'a'.repeat(250)
       });
       const errors = await validate(dto);
       expect(errors.length).toBe(0);
@@ -143,16 +143,16 @@ describe('CreateUserDto', () => {
     it('should pass with empty string when field is optional', async () => {
       const dto = plainToInstance(CreateUserDto, {
         ...validUserData,
-        urlAvatar: ''
+        url_avatar: ''
       });
       const errors = await validate(dto);
       expect(errors.length).toBe(0);
     });
 
-    it('should handle urlAvatar with special characters', async () => {
+    it('should handle url_avatar with special characters', async () => {
       const dto = plainToInstance(CreateUserDto, {
         ...validUserData,
-        urlAvatar: 'https://example.com/avatar?id=123&size=large#fragment'
+        url_avatar: 'https://example.com/avatar?id=123&size=large#fragment'
       });
       const errors = await validate(dto);
       expect(errors.length).toBe(0);
@@ -201,7 +201,7 @@ describe('CreateUserDto', () => {
     it('should fail with decimal number', async () => {
       const dto = plainToInstance(CreateUserDto, {
         ...validUserData,
-        settingId: 1.1
+        setting_id: 1.1
       });
       const errors = await validate(dto);
       expect(errors[0].constraints?.isInt).toBe('validation.user.IS_INT_SETTING_ID');
@@ -210,7 +210,7 @@ describe('CreateUserDto', () => {
     it('should fail with string number', async () => {
       const dto = plainToInstance(CreateUserDto, {
         ...validUserData,
-        settingId: '1'
+        setting_id: '1'
       });
       const errors = await validate(dto);
       expect(errors[0].constraints?.isInt).toBe('validation.user.IS_INT_SETTING_ID');
@@ -219,7 +219,7 @@ describe('CreateUserDto', () => {
     it('should fail with negative number', async () => {
       const dto = plainToInstance(CreateUserDto, {
         ...validUserData,
-        settingId: -1
+        setting_id: -1
       });
       const errors = await validate(dto);
       expect(errors[0].constraints?.min).toBe('validation.user.MIN_SETTING_ID');
@@ -228,7 +228,7 @@ describe('CreateUserDto', () => {
     it('should pass with MAX_SAFE_INTEGER', async () => {
       const dto = plainToInstance(CreateUserDto, {
         ...validUserData,
-        settingId: Number.MAX_SAFE_INTEGER
+        setting_id: Number.MAX_SAFE_INTEGER
       });
       const errors = await validate(dto);
       expect(errors.length).toBe(0);
@@ -271,8 +271,8 @@ describe('CreateUserDto', () => {
         name: 123,
         email: [],
         password: {},
-        urlAvatar: true,
-        settingId: '1'
+        url_avatar: true,
+        setting_id: '1'
       });
       const errors = await validate(dto);
       

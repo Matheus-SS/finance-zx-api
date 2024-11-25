@@ -16,7 +16,7 @@
   "domain": {
     "user": {
       "notFound": "Usuário não encontrado",
-      "alreadyExists": "Usuário já existe",
+      "ALREADY_EXISTS": "Usuário já existe",
       "invalidCredentials": "Credenciais inválidas"
     }
   }

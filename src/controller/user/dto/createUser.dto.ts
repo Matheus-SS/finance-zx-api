@@ -33,7 +33,7 @@ export class CreateUserDto {
   @IsString({
     message: "validation.user.IS_STRING_URL_AVATAR"
   })
-  urlAvatar?: null | string;
+  url_avatar?: null | string;
 
 
   @Length(6, 25, {
@@ -53,5 +53,5 @@ export class CreateUserDto {
   @Min(1, {
     message: 'validation.user.MIN_SETTING_ID'
   })
-  settingId?: null | number;
+  setting_id?: null | number;
 }
