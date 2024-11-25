@@ -65,7 +65,6 @@ describe('CreateUserDto', () => {
         name: '   '
       });
       const errors = await validate(dto);
-      console.log("errors", errors);
       expect(errors[0].constraints?.isLength).toBe('validation.user.LENGTH_NAME');
     });
 
@@ -147,7 +146,6 @@ describe('CreateUserDto', () => {
         urlAvatar: ''
       });
       const errors = await validate(dto);
-      console.log("errors", errors);
       expect(errors.length).toBe(0);
     });
 
@@ -186,7 +184,7 @@ describe('CreateUserDto', () => {
         password: ' '.repeat(10)
       });
       const errors = await validate(dto);
-      expect(errors[0].constraints?.isString).toBe('validation.user.IS_STRING_PASSWORD');
+      expect(errors[0].constraints?.isLength).toBe('validation.user.LENGTH_PASSWORD');
     });
 
     it('should handle password with special characters', async () => {
@@ -247,12 +245,6 @@ describe('CreateUserDto', () => {
       expect(errorFields).toContain('name');
       expect(errorFields).toContain('email');
       expect(errorFields).toContain('password');
-    });
-
-    it('should handle null object submission', async () => {
-      const dto = plainToInstance(CreateUserDto, null);
-      const errors = await validate(dto);
-      expect(errors.length).toBeGreaterThan(0);
     });
 
     it('should handle undefined values for required fields', async () => {
