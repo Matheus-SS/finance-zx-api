@@ -1,14 +1,14 @@
 import { ConflictException, Inject, Injectable } from "@nestjs/common";
 import { IUserRepository } from "../persistence/user.interface";
 import { CreateUserDto } from "../controller/user/dto/createUser.dto";
-import { USER_REPOSITORY } from "../constants";
+import { BCRYPT_SERVICE, USER_REPOSITORY } from "../constants";
 import { IHash } from "../extra/bcrypt.service";
 
 @Injectable()
 export class UserService {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepo: IUserRepository,
-    @Inject('BCRYPT_SERVICE') private readonly bcryptService: IHash
+    @Inject(BCRYPT_SERVICE) private readonly bcryptService: IHash
   ) {}
 
   public async create(data: CreateUserDto): Promise<string> {
