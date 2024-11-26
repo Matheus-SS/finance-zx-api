@@ -25,4 +25,8 @@ export class KnexService implements Database {
     const result = await this.getKnexConnection().raw(sqlQuery, param);
     return result.rows;
   }
+
+  async disconnect(): Promise<void> {
+    await this.getKnexConnection().destroy();
+  }
 } 

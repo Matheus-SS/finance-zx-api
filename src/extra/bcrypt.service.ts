@@ -9,6 +9,8 @@ export interface IHash {
 export class BcryptService implements IHash {
   async generateHash(valueRaw: string): Promise<string> {
     const saltRounds = 10;
-    return await bcrypt.hash(valueRaw, saltRounds);
+    const hashed =  await bcrypt.hash(valueRaw, saltRounds);
+
+    return hashed
   }
 }

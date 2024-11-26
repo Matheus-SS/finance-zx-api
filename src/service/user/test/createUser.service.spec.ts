@@ -1,7 +1,7 @@
 import { BcryptService, IHash } from "../../../extra/bcrypt.service";
 import { FakeUserRepository } from "../../../persistence/fakeUser.repository"
 import { IUserRepository } from "../../../persistence/user.interface"
-import { UserService } from "../../../service/user.service";
+import { UserService } from "../../user/user.service";
 import { CreateUserDto } from "../../../controller/user/dto/createUser.dto";
 import { ConflictException } from "@nestjs/common";
 
