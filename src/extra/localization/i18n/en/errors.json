@@ -5,12 +5,12 @@
       "LENGTH_NAME": "name must be between 2 and 50 characters",
       "IS_STRING_EMAIL": "email must be string", 
       "INVALID_EMAIL": "email must be a valid email",
-      "LENGTH_URL_AVATAR": "urlAvatar must be between 10 and 250 characters",
-      "IS_STRING_URL_AVATAR": "urlAvatar must be string",
+      "LENGTH_URL_AVATAR": "url_avatar must be between 10 and 250 characters",
+      "IS_STRING_URL_AVATAR": "url_avatar must be string",
       "LENGTH_PASSWORD": "password must be between 6 and 25 characters",
       "IS_STRING_PASSWORD": "password must be string",
-      "IS_INT_SETTING_ID": "settingId must be an integer",
-      "MIN_SETTING_ID": "settingId must not be shorter than 1"
+      "IS_INT_SETTING_ID": "setting_id must be an integer",
+      "MIN_SETTING_ID": "setting_id must not be shorter than 1"
     }    
   },
   "domain": {

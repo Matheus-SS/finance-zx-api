@@ -11,21 +11,22 @@ export class UserService {
     @Inject('BCRYPT_SERVICE') private readonly bcryptService: IHash
   ) {}
 
-  public async create(data: CreateUserDto) {
+  public async create(data: CreateUserDto): Promise<string> {
     const user = await this.userRepo.findByEmail(data.email);
 
     if (user) {
       throw new ConflictException('domain.user.ALREADY_EXISTS');
     }
+    
+    const passwordHashed = await this.bcryptService.generateHash(data.password);
 
-    const passwordHashed = await this.bcryptService.generateHash(user.password);
-
-    const res = await this.userRepo.create({
+    await this.userRepo.create({
       ...data,
       password: passwordHashed,
       setting_id: data?.setting_id ? data.setting_id : null,
       url_avatar: data?.url_avatar ? data.url_avatar : null
     });
-    return res;
+
+    return 'ok';
   }
 }

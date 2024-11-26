@@ -1,9 +1,12 @@
 import { IsEmail, IsInt, IsOptional, IsString, Length, Min } from "class-validator";
 import { Trim } from "../../../extra/decorator/trim.decorator";
 import { Transform } from "class-transformer";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateUserDto {
- 
+  @ApiProperty({
+    example: 'jhon doe'
+  })
   @IsString({
     message: "validation.user.IS_STRING_NAME"
   })
@@ -13,7 +16,9 @@ export class CreateUserDto {
   @Trim()
   name: string;
 
-  
+  @ApiProperty({
+    example: 'jhon@doe.com'
+  })
   @IsString({
     message: "validation.user.IS_STRING_EMAIL"
   })
@@ -23,7 +28,11 @@ export class CreateUserDto {
   @Trim()
   email: string;
 
-
+  @ApiProperty({
+    example: null,
+    required: false,
+    type: "string"
+  })
   @Transform(({ value }) => (value === '' ? null : value))
   @Trim()
   @IsOptional()
@@ -35,7 +44,9 @@ export class CreateUserDto {
   })
   url_avatar?: null | string;
 
-
+  @ApiProperty({
+    example: 'abcdef'
+  })
   @Length(6, 25, {
     message: 'validation.user.LENGTH_PASSWORD'
   })
@@ -45,7 +56,11 @@ export class CreateUserDto {
   @Trim()
   password: string;
 
-  
+  @ApiProperty({
+    example: null, 
+    required: false,
+    type: "number"
+  })
   @IsOptional()
   @IsInt({
     message: 'validation.user.IS_INT_SETTING_ID'
