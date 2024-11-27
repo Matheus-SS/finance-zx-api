@@ -15,7 +15,7 @@ import { I18nService } from './extra/localization/i18n/i18n.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development'],
+      envFilePath: [process.env.NODE_ENV === 'production' ? '.env.production' :  process.env.NODE_ENV === 'test' ? '.env.test' : '.env.development'],
       isGlobal: true,
       load: [configuration]
     }),

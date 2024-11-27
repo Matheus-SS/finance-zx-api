@@ -1,4 +1,4 @@
-create table tbl_users(
+create table if not exists tbl_users(
 	id serial primary key,
 	name varchar(100) not null,
 	email varchar(100) unique not null,

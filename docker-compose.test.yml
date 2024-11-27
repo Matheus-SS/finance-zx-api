@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:16.4-alpine3.19
+    container_name: financezx-db-testing
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_DB: phoenix-testing
+    ports:
+      - 5433:5432
