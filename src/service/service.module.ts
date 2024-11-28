@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
-import { PersistenceModule } from "../persistence/persistence.module";
+import { PersistenceModule } from "@persistence/persistence.module";
 import { UserService } from "./user/user.service";
-import { ExtraModule } from "../extra/extra.module";
+import { ExtraModule } from "@extra/extra.module";
 
 @Module({
   imports: [ PersistenceModule, ExtraModule ],

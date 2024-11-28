@@ -16,6 +16,15 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@app/*": ["./src/*"],
+      "@config/*": ["./src/config/*"],
+      "@controller/*": ["./src/controller/*"],
+      "@database/*": ["./src/database/*"],
+      "@extra/*": ["./src/extra/*"],
+      "@persistence/*": ["./src/persistence/*"],
+      "@service/*": ["./src/service/*"]
+    }
   }
 }

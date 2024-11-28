@@ -1,7 +1,7 @@
 import { DynamicModule, Global, Module, Provider } from "@nestjs/common";
 import { KnexAsyncOptions, KnexOptions } from "./interface";
 import { KnexService } from "./knex.service";
-import { CONFIG_KNEX_OPTIONS, KNEX_CONNECTION } from "../../constants";
+import { CONFIG_KNEX_OPTIONS, KNEX_CONNECTION } from "@app/constants";
 
 @Global()
 @Module({})

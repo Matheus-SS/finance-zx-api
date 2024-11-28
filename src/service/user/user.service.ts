@@ -1,8 +1,8 @@
 import { ConflictException, Inject, Injectable } from "@nestjs/common";
-import { IUserRepository } from "../../persistence/user.interface";
-import { CreateUserDto } from "../../controller/user/dto/createUser.dto";
-import { BCRYPT_SERVICE, USER_REPOSITORY } from "../../constants";
-import { IHash } from "../../extra/bcrypt.service";
+import { IUserRepository } from "@persistence/user.interface";
+import { CreateUserDto } from "@controller/user/dto/createUser.dto";
+import { BCRYPT_SERVICE, USER_REPOSITORY } from "@app/constants";
+import { IHash } from "@extra/bcrypt.service";
 
 @Injectable()
 export class UserService {

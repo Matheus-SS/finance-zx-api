@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { UserRepository } from "./index";
-import { USER_REPOSITORY } from "../constants";
+import { USER_REPOSITORY } from "@app/constants";
 
 @Module({
   providers: [

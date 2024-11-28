@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Create, IUserRepository, RCreate, RFindByEmail } from "./user.interface";
-import { KNEX_CONNECTION } from "../constants";
-import { Database } from "../database/knex/interface";
+import { KNEX_CONNECTION } from "@app/constants";
+import { Database } from "@database/knex/interface";
 
 @Injectable()
 export class UserRepository implements IUserRepository {

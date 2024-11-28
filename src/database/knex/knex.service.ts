@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { Database, KnexOptions } from "./interface";
 import knex from "knex";
-import { CONFIG_KNEX_OPTIONS } from "../../constants";
+import { CONFIG_KNEX_OPTIONS } from "@app/constants";
 
 @Injectable()
 export class KnexService implements Database {

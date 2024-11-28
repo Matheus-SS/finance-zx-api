@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { UserService } from "../../service/user/user.service"
+import { UserService } from "@service/user/user.service"
 import { CreateUserDto } from "./dto/createUser.dto";
 import { ApiBadRequestResponse, ApiConflictResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiOperation } from "@nestjs/swagger";
 import { createUserValidationInputError } from "./dto/exampleResponse";

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { KnexModule } from './database/knex/knex.module';
+import { KnexModule } from '@database/knex/knex.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { configuration, DatabaseConfig } from './config/configuration';
+import { configuration, DatabaseConfig } from '@config/configuration';
 import { UserController } from './controller/index';
 import { ServiceModule } from './service/service.module';
 import { I18nModule } from 'nestjs-i18n';

@@ -1,7 +1,5 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Database } from './database/knex/interface';
-import { KNEX_CONNECTION } from './constants';
 
 @Controller()
 export class AppController {

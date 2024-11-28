@@ -1,5 +1,5 @@
 import { IsEmail, IsInt, IsOptional, IsString, Length, Min } from "class-validator";
-import { Trim } from "../../../extra/decorator/trim.decorator";
+import { Trim } from "@extra/decorator/trim.decorator";
 import { Transform } from "class-transformer";
 import { ApiProperty } from "@nestjs/swagger";
 

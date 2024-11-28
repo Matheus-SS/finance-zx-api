@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { registerDecorator, ValidationArguments, ValidationOptions } from "class-validator";
+import { registerDecorator, ValidationOptions } from "class-validator";
 
 export function Trim(validationOptions?: ValidationOptions) {
     return function (object: Object, propertyName: string) {
