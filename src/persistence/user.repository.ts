@@ -22,7 +22,7 @@ export class UserRepository implements IUserRepository {
   }
   
   async findByEmail(email: string): Promise<RFindByEmail> {
-    const sql = `SELECT email, name, url_avatar, password, setting_id, created_at, updated_at FROM tbl_users WHERE email = :email`;
+    const sql = `SELECT id, email, name, url_avatar, password, setting_id, created_at, updated_at FROM tbl_users WHERE email = :email`;
     const res = await this.conn.queryRaw(sql, { email: email });
 
     return res[0];

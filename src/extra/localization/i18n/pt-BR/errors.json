@@ -15,9 +15,10 @@
   },
   "domain": {
     "user": {
-      "notFound": "Usuário não encontrado",
-      "ALREADY_EXISTS": "Usuário já existe",
-      "invalidCredentials": "Credenciais inválidas"
+      "ALREADY_EXISTS": "Usuário já existe"
+    },
+    "auth": {
+      "INCORRECT_EMAIL_OR_PASSWORD": "Usuário email/senha estão errados"
     }
   }
 }

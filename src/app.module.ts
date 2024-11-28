@@ -4,14 +4,13 @@ import { AppService } from './app.service';
 import { KnexModule } from '@database/knex/knex.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configuration, DatabaseConfig } from '@config/configuration';
-import { UserController } from './controller/index';
+import { UserController, AuthController } from './controller/index';
 import { ServiceModule } from './service/service.module';
 import { I18nModule } from 'nestjs-i18n';
 import * as path from 'path';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './extra/httpException.filter';
 import { I18nService } from './extra/localization/i18n/i18n.service';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -50,7 +49,7 @@ import { I18nService } from './extra/localization/i18n/i18n.service';
     }),
     ServiceModule
   ],
-  controllers: [AppController, UserController],
+  controllers: [AppController, UserController, AuthController],
   providers: [
     AppService,
     I18nService, 

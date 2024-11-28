@@ -11,13 +11,14 @@
       "IS_STRING_PASSWORD": "password must be string",
       "IS_INT_SETTING_ID": "setting_id must be an integer",
       "MIN_SETTING_ID": "setting_id must not be shorter than 1"
-    }    
+    }   
   },
   "domain": {
     "user": {
-      "INCORRECT_EMAIL_OR_PASSWORD": "User email/password incorrect",
-      "ALREADY_EXISTS": "User already exists",
-      "invalidCredentials": "Invalid credentials"
+      "ALREADY_EXISTS": "User already exists"
+    },
+    "auth": {
+      "INCORRECT_EMAIL_OR_PASSWORD": "User email/password wrong"
     }
   }
 }

@@ -1,5 +1,7 @@
 export interface AppConfig {
   port: number;
+  jwtSecret: string;
+  jwtExpiresIn: string;
 };
 
 export interface DatabaseConfig {
@@ -21,7 +23,9 @@ interface Config {
 export function configuration(): Config {
   return {
     app: {
-      port: +process.env.PORT
+      port: +process.env.PORT,
+      jwtSecret: process.env.JWT_SECRET,
+      jwtExpiresIn: process.env.JWT_EXPIRES_IN
     },
     database: {
       client: process.env.DATABASE_CLIENT,
