@@ -8,9 +8,11 @@ import { UserController, AuthController } from './controller/index';
 import { ServiceModule } from './service/service.module';
 import { I18nModule } from 'nestjs-i18n';
 import * as path from 'path';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { HttpExceptionFilter } from './extra/httpException.filter';
 import { I18nService } from './extra/localization/i18n/i18n.service';
+import { AuthGuard } from './extra/guard/auth.guard';
+import { ExtraModule } from './extra/extra.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -47,7 +49,8 @@ import { I18nService } from './extra/localization/i18n/i18n.service';
         watch: true
       }
     }),
-    ServiceModule
+    ServiceModule,
+    ExtraModule
   ],
   controllers: [AppController, UserController, AuthController],
   providers: [

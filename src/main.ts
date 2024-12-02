@@ -4,14 +4,16 @@ import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './extra/httpException.filter';
 import { I18nService } from './extra/localization/i18n/i18n.service';
+import cookieParser from 'cookie-parser';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const log = new Logger('Main');
   const app = await NestFactory.create(AppModule);
-
   const configService = app.get(ConfigService);
   const i18nService = app.get(I18nService);
+
+  app.use(cookieParser());
 
   app.useGlobalFilters(new HttpExceptionFilter(i18nService));
   

@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Post, Res } from "@nestjs/common";
+import { Body, Controller, Get, Post, Res, Req, UseGuards } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiConflictResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiOperation } from "@nestjs/swagger";
 import { LoginDto } from "./dto/login.dto";
 import { AuthService } from "@service/auth/auth.service";
 import { Response } from "express";
 import { ConfigService } from "@nestjs/config";
-import { UserId } from "@extra/decorator/userId.decorator";
+import { AuthGuard } from "@extra/guard/auth.guard";
 
 
 @Controller('auth')
@@ -22,19 +22,20 @@ export class AuthController {
   // @ApiBadRequestResponse({ description: 'Input validation' , example: { statusCode: 400, message: createUserValidationInputError }})
   public async login(@Body() data: LoginDto, @Res({ passthrough: true }) res: Response) {
     const result = await this.authService.login(data);
-    console.log("result", result);
+    console.log(this.configService.get('app.cookieMaxAge'))
     res.cookie('access_token', result.access_token, {
       httpOnly: process.env.NODE_ENV === 'production',
-      sameSite: "none",
-      maxAge: 60 * 60 * 6 * 1000,
+      sameSite: this.configService.get('app.cookieSameSite'),
+      maxAge: this.configService.get('app.cookieMaxAge'),
       secure: process.env.NODE_ENV === 'production'
     });
     
     return 'ok';
   }
 
+  @UseGuards(AuthGuard)
   @Get('/status')
-  public async status(@UserId() data) {
+  public async status() {
     return 'ok'
   }
 }

@@ -2,6 +2,8 @@ export interface AppConfig {
   port: number;
   jwtSecret: string;
   jwtExpiresIn: string;
+  cookieSameSite: string;
+  cookieMaxAge: number;
 };
 
 export interface DatabaseConfig {
@@ -25,7 +27,9 @@ export function configuration(): Config {
     app: {
       port: +process.env.PORT,
       jwtSecret: process.env.JWT_SECRET,
-      jwtExpiresIn: process.env.JWT_EXPIRES_IN
+      jwtExpiresIn: process.env.JWT_EXPIRES_IN,
+      cookieMaxAge: +process.env.COOKIE_MAX_AGE,
+      cookieSameSite: process.env.COOKIE_SAME_SITE
     },
     database: {
       client: process.env.DATABASE_CLIENT,
