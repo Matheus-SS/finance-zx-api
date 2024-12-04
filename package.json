@@ -17,7 +17,11 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "cross-env NODE_ENV=test jest --config ./test/jest-e2e.json --runInBand --no-cache"
+    "test:e2e": "cross-env NODE_ENV=test jest --config ./test/jest-e2e.json --runInBand --no-cache",
+    "predocker:build": "nest build",
+    "docker:build": "docker build -t froste433/finance-api .",
+    "docker:push": "docker push froste433/finance-api",
+    "docker:run": "docker run -p 3000:3000 --name finance-api froste433/finance-api"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
