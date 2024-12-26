@@ -11,9 +11,9 @@ export class AuthService {
     @Inject(USER_REPOSITORY) private readonly userRepo: IUserRepository,
     @Inject(BCRYPT_SERVICE) private readonly bcryptService: IHash,
     @Inject(JWT_SERVICE) private readonly jwtService: IJwt
-  ) {}
+  ) { }
 
-  public async login(data: LoginDto): Promise<{ access_token: string }> {
+  public async login(data: LoginDto): Promise<{ access_token: string, user: { name: string } }> {
     const user = await this.userRepo.findByEmail(data.email);
 
     if (!user) {
@@ -21,16 +21,19 @@ export class AuthService {
     }
 
     const passwordMatch = await this.bcryptService.compareHash(data.password, user.password);
-    
+
     if (!passwordMatch) {
       throw new NotFoundException('domain.auth.INCORRECT_EMAIL_OR_PASSWORD');
     }
 
     const token = this.jwtService.generateToken({ userId: user.id });
-    
+
     return {
-      access_token: token
+      access_token: token,
+      user: {
+        name: user.name
+      }
     };
   }
-  
+
 }

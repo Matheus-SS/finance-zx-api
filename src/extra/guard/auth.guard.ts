@@ -13,15 +13,15 @@ import { JWT_SERVICE } from '@app/constants';
 export class AuthGuard implements CanActivate {
   constructor(
     @Inject(JWT_SERVICE) private jwtService: IJwt
-  ) {}
+  ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromCookies(request);
+    const token = this.extractTokenFromAuthorization(request);
     if (!token) {
       throw new UnauthorizedException();
     }
-  
+
     try {
       const payload = this.jwtService.verifyToken(
         token,
@@ -35,8 +35,8 @@ export class AuthGuard implements CanActivate {
     return true;
   }
 
-  private extractTokenFromCookies(request: Request): string {
-    const token = request.cookies['access_token'] ?? ''
-    return token
+  private extractTokenFromAuthorization(request: Request): string {
+    const [, token] = request.headers['authorization']?.split(' ') ?? '';
+    return token;
   }
 }
