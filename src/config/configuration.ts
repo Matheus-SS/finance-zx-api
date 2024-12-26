@@ -4,6 +4,7 @@ export interface AppConfig {
   jwtExpiresIn: string;
   cookieSameSite: string;
   cookieMaxAge: number;
+  corsOrigin: string; 
 };
 
 export interface DatabaseConfig {
@@ -29,7 +30,8 @@ export function configuration(): Config {
       jwtSecret: process.env.JWT_SECRET,
       jwtExpiresIn: process.env.JWT_EXPIRES_IN,
       cookieMaxAge: +process.env.COOKIE_MAX_AGE,
-      cookieSameSite: process.env.COOKIE_SAME_SITE
+      cookieSameSite: process.env.COOKIE_SAME_SITE,
+      corsOrigin: process.env.CORS_ORIGIN
     },
     database: {
       client: process.env.DATABASE_CLIENT,

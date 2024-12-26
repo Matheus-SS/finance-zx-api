@@ -13,22 +13,30 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const i18nService = app.get(I18nService);
 
+  const origin = configService.get<string>('app.corsOrigin');
+
+  app.enableCors({
+    origin: origin,
+    credentials: true
+  });
+
   app.use(cookieParser());
 
   app.useGlobalFilters(new HttpExceptionFilter(i18nService));
-  
+
   app.useGlobalPipes(new ValidationPipe());
 
   app.setGlobalPrefix('/v1/api/');
 
   const config = new DocumentBuilder()
-      .setTitle('Finance api')
-      .setVersion('1.0')
-      .build()
+    .setTitle('Finance api')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build()
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, documentFactory);
-  
+
   const PORT = configService.get<number>('app.port');
   await app.listen(PORT);
   log.log(`Server running on port ${PORT}`)

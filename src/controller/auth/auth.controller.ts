@@ -12,8 +12,8 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly configService: ConfigService
-  ){}
- 
+  ) { }
+
   @Post('/login')
   // @ApiOperation({ summary: 'create users' })
   // @ApiCreatedResponse({ description: 'Create user successfully', example: 'ok' })
@@ -29,13 +29,19 @@ export class AuthController {
       maxAge: this.configService.get('app.cookieMaxAge'),
       secure: process.env.NODE_ENV === 'production'
     });
-    
+
     return 'ok';
   }
 
   @UseGuards(AuthGuard)
   @Get('/status')
-  public async status() {
+  public async status(@Res({ passthrough: true }) res: Response) {
+    res.cookie('authenticated', true, {
+      httpOnly: false,
+      sameSite: this.configService.get('app.cookieSameSite'),
+      maxAge: this.configService.get('app.cookieMaxAge'),
+      secure: process.env.NODE_ENV === 'production'
+    });
     return 'ok'
   }
 }

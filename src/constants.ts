@@ -3,5 +3,7 @@ export const KNEX_CONNECTION = 'KNEX_CONNECTION';
 
 export const USER_REPOSITORY = 'USER_REPOSITORY';
 
+export const AUTH_ROUTE = 'auth';
+
 export const BCRYPT_SERVICE = 'BCRYPT_SERVICE';
 export const JWT_SERVICE = 'JWT_SERVICE';
