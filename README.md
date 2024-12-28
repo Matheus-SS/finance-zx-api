@@ -65,3 +65,61 @@ SELECT DA TABELA FUNDS
 - id (int autoincrement)
 - (qualquer config) Ex.: discord, email, se enviar notificao, qual notificao usar
  
+
+ adicionar despesa
+ EX.: compras que acabei de fazer a vista, um lanche, remedio do cachorro, algo no mercado versao a vista
+  - valor
+  - data que foi adicionado (created_at)
+  - data da despesa
+  - descricao da despesa
+    - Despesas que sao fixas: luz, agua, telefone
+      - quando é a primeira parcela - data
+      - quantas parcelas - numero de meses 12
+      - qual o numero da atual parcela
+      - data de vencimento
+      - opcao para saber se notifica quando vence essa conta
+  - opcao de esta pago - quando for despesa variavel padrao é true, no fixa eu deixo como padrao false
+
+Criar despesa
+body
+ - value
+ - date
+ - description
+ - type / fixo ou variável
+ - first_month_installment/ fixo
+ - due_date / fixo
+ - notify / fixo true ou false
+ - paid true ou false
+
+ banco
+ - id
+ - user_id
+ - date
+ - description
+ - type
+ - quantity_installment
+ - current_installment
+ - due_date
+ - notify
+ - paid
+ - created_at
+ - updated_at
+
+ Insercao de quando for tipo de despesas variaveis
+ receber user_id do token do usuario
+ Usar campos value, date(data da despesa), description, type(1), notify, paid(1)
+Insercao de quando for tipo de despesas fixas
+receber user_id do token do usuario
+ Usar campos value, date(data da despesa), description, type(2), notify, first_month_installment(data), due_date(data)
+
+------------------------------
+
+  Cartao
+  valor
+  descricao da despesa
+  quantidade de parcela da compra
+  campo de quando é a primeira parcela
+  data q foi feita a compra
+  data de vencimento do cartao
+  nome do cartao
+
